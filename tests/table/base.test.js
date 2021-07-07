@@ -9,32 +9,13 @@ describe('GET /tables/:name', () => {
     });
   });
   describe('when table found', () => {
-    it('returns table keys', () => {
-      return request(app)
-        .get('/tables/orders')
-        .expect(200)
-        .then(res => {
-          expect(res.body.keys).toEqual([
-            { primary_key: 'id' },
-            { foreign_keys: [{
-              column: 'client_id',
-              name: 'orders_client_id_fkey',
-              referenced_column: 'id',
-              referenced_table: 'clients',
-            }]}
-          ]);
-        });
-    });
-    it('returns table structure', () => {
+    it('returns table records total count', () => {
       return request(app)
         .get('/tables/settings')
         .expect(200)
         .then(res => {
-          expect(res.body.columns).toEqual([
-            'key',
-            'value'
-          ]);
-      });
+          expect(res.body.count).toEqual(2);
+        });
     });
     it('returns table records', () => {
       return request(app)
@@ -46,14 +27,6 @@ describe('GET /tables/:name', () => {
             { key: 'currency', value: 'usd' },
             { key: 'locale', value: 'en' }
           ]);
-        });
-    });
-    it('returns table records total count', () => {
-      return request(app)
-        .get('/tables/settings')
-        .expect(200)
-        .then(res => {
-          expect(res.body.count).toEqual(2);
         });
     });
   });

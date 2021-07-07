@@ -4,15 +4,9 @@ const { validateFilters, validateOrderFilter } = require('../lib/middlewares');
 
 router.get('/', validateFilters, validateOrderFilter, async (req, res, next) => {
   try {
-    const primaryKey = await db.tablePrimaryKey(req.params.name);
-    const foreignKeys = await db.tableForeignKeys(req.params.name);
-    const columns = await db.tableColumns(req.params.name);
     const records = await db.tableRecords(req.params.name, req.query);
     const recordsCount = await db.tableRecordsCount(req.params.name);
-    res.json({ columns, records, count: recordsCount, keys: [
-      { primary_key: primaryKey }, 
-      { foreign_keys: foreignKeys }
-    ]});
+    res.json({ count: recordsCount, records });
   } catch (err) {
     next(err);
   }
@@ -38,6 +32,20 @@ router.delete('/', async (req, res, next) => {
     }
     const records = await db.destroy(req.params.name);
     res.sendStatus(204);
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get('/meta', async (req, res, next) => {
+  try {
+    const primaryKey = await db.tablePrimaryKey(req.params.name);
+    const foreignKeys = await db.tableForeignKeys(req.params.name);
+    const columns = await db.tableColumns(req.params.name);
+    res.json({ columns, keys: [
+      { primary_key: primaryKey }, 
+      { foreign_keys: foreignKeys }
+    ]});
   } catch (err) {
     next(err);
   }
