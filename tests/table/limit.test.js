@@ -1,4 +1,4 @@
-require('../../test_helper');
+require('../test_helper');
 
 describe('GET /tables/:name?limit=', () => {
   describe('when table not found', () => {

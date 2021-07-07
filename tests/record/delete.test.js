@@ -1,4 +1,4 @@
-require('../../test_helper');
+require('../test_helper');
 
 describe('DELETE /tables/:name/:pk', () => {
   describe('when table not found', () => {

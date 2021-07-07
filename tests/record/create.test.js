@@ -1,4 +1,4 @@
-require('../../test_helper');
+require('../test_helper');
 
 describe('POST /tables/:name', () => {
   describe('when table not found', () => {
