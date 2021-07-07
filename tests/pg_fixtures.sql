@@ -1,7 +1,7 @@
-drop view active_clients;
-drop table settings;
-drop table orders;
-drop table clients;
+drop view if exists active_clients;
+drop table if exists settings;
+drop table if exists orders;
+drop table if exists clients;
 
 create table clients (
   id serial primary key not null,
