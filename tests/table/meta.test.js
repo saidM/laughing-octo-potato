@@ -14,15 +14,15 @@ describe('GET /tables/:name/:meta', () => {
         .get('/tables/orders/meta')
         .expect(200)
         .then(res => {
-          expect(res.body.keys).toEqual([
-            { primary_key: 'id' },
-            { foreign_keys: [{
+          expect(res.body.keys).toEqual({
+            primary_key: 'id',
+            foreign_keys: [{
               column: 'client_id',
               name: 'orders_client_id_fkey',
               referenced_column: 'id',
               referenced_table: 'clients',
-            }]}
-          ]);
+            }]
+          });
         });
     });
     it('returns table columns', () => {

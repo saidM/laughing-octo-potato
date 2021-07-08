@@ -42,10 +42,10 @@ router.get('/meta', async (req, res, next) => {
     const primaryKey = await db.tablePrimaryKey(req.params.name);
     const foreignKeys = await db.tableForeignKeys(req.params.name);
     const columns = await db.tableColumns(req.params.name);
-    res.json({ columns, keys: [
-      { primary_key: primaryKey }, 
-      { foreign_keys: foreignKeys }
-    ]});
+    res.json({ columns, keys: {
+      primary_key: primaryKey, 
+      foreign_keys: foreignKeys
+    }});
   } catch (err) {
     next(err);
   }
