@@ -31,8 +31,8 @@ describe('GET /tables/:name/:meta', () => {
         .expect(200)
         .then(res => {
           expect(res.body.columns).toEqual([
-            'key',
-            'value'
+            { name: 'key', type: 'text' },
+            { name: 'value', type: 'text' }
           ]);
         });
     });

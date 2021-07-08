@@ -4,9 +4,11 @@ if (process.env.NODE_ENV !== 'test') {
 
 const db      = require('./lib/db');
 const express = require('express');
+const cors = require('cors');
 const { validateFilters, validateOrderFilter } = require('./lib/middlewares');
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 
 /*app.use(async (req, res, next) => {
