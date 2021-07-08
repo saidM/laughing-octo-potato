@@ -36,5 +36,15 @@ describe('GET /tables/:name/:meta', () => {
           ]);
         });
     });
+    it('returns table has many', () => {
+      return request(app)
+        .get('/tables/clients/meta')
+        .expect(200)
+        .then(res => {
+          expect(res.body.has_many).toEqual([
+            'orders'
+          ]);
+        });
+    });
   });
 });
