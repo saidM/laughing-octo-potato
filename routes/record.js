@@ -28,7 +28,9 @@ router.put('/', async (req, res, next) => {
 
 router.delete('/', async (req, res, next) => {
   try {
-    const [record] = await db.destroy(req.params.name, req.params.pk);
+    const [record] = await db.destroy(req.params.name, {
+      pk: req.params.pk
+    });
     if (typeof record === 'undefined') {
       return res.sendStatus(404);
     }

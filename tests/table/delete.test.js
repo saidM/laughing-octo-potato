@@ -34,6 +34,17 @@ describe('when force=true header present', () => {
     });
   });
   describe('when filters', () => {
-    test.todo('deletes all matching records from table');
+    it('deletes all matching records from table', () => {
+      return request(app)
+        .delete('/tables/orders')
+        .query({ id: 'gte.2' })
+        .set({ force: true })
+        .expect(204)
+        .then(async (res) => {
+          const data = await db.any('SELECT id FROM orders');
+          expect(data.length).toEqual(1);
+          expect(data[0].id).toEqual(1);
+        });
+    });
   });
 });

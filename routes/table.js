@@ -30,7 +30,7 @@ router.delete('/', async (req, res, next) => {
     if (!exists) {
       return res.sendStatus(404);
     }
-    const records = await db.destroy(req.params.name);
+    await db.destroy(req.params.name, req.query);
     res.sendStatus(204);
   } catch (err) {
     next(err);
