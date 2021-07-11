@@ -31,6 +31,18 @@ app.get('/views', async (req, res) => {
   res.json(views);
 });
 
+app.post('/queries', async (req, res, next) => {
+  try {
+    if (!req.body.query) {
+      return res.status(400).json({ error: 'missing sql query' });
+    }
+    const data = await db.any(req.body.query);
+    res.json(data);
+  } catch (err) {
+    next(err);
+  }
+});
+
 app.use('/tables/:name', require('./routes/table'));
 app.use('/tables/:name/:pk', require('./routes/record'));
 
