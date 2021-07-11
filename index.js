@@ -35,11 +35,12 @@ app.use('/tables/:name', require('./routes/table'));
 app.use('/tables/:name/:pk', require('./routes/record'));
 
 app.use((err, req, res, next) => {
-  if (err.message.match(/relation "\w+" does not exist/)) {
-    return res.status(404).json({ error: `table ${req.params.name} does not exist` });
-  }
   columnDoesNotExistRegex = /column "\w+" does not exist/;
+  tableDoesNotExistRegex = /relation "\w+" does not exist/;
   let status = 500;
+  if (err.message.match(tableDoesNotExistRegex)) {
+    status = 404;
+  }
   if (err.message.match(columnDoesNotExistRegex)) {
     status = 400;
   }
