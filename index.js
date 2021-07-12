@@ -1,5 +1,6 @@
-if (process.env.NODE_ENV !== 'test') {
-  process.env.DATABASE_URL = 'postgres://saidmimouni:@localhost/sql2rest';
+if (!process.env.DATABASE_URL) {
+  console.log('Missing ENV[DATABASE_URL]');
+  process.exit(1);
 }
 
 const db      = require('./lib/db');
@@ -11,24 +12,22 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-/*app.use(async (req, res, next) => {
+app.get('/tables', async (req, res, next) => {
   try {
-    const connection = await db.connect();
-    connection.done();
-    next();
+    const tables = await db.tables();
+    res.json(tables);
   } catch (err) {
-    return res.sendStatus(401);
+    next(err);
   }
-});*/
-
-app.get('/tables', async (req, res) => {
-  const tables = await db.tables();
-  res.json(tables);
 });
 
-app.get('/views', async (req, res) => {
-  const views = await db.views();
-  res.json(views);
+app.get('/views', async (req, res, next) => {
+  try {
+    const views = await db.views();
+    res.json(views);
+  } catch (err) {
+    next(err);
+  }
 });
 
 app.post('/queries', async (req, res, next) => {
