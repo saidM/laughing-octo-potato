@@ -35,7 +35,7 @@ describe('GET /tables/:name?filter=', () => {
       it('applies filter (regardless of case)', () => {
         return request(app)
           .get('/tables/settings')
-          .query({ key: 'eq.Currency' })
+          .query({ key: 'eq.CURRENCY' })
           .expect(200)
           .then(res => {
             expect(res.body.records.length).toEqual(1);
