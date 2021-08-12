@@ -32,6 +32,16 @@ describe('GET /tables/:name?filter=', () => {
             expect(res.body.records[0].key).toEqual('currency');
           });
       });
+      it('applies filter (regardless of case)', () => {
+        return request(app)
+          .get('/tables/settings')
+          .query({ key: 'eq.CURRENCY' })
+          .expect(200)
+          .then(res => {
+            expect(res.body.records.length).toEqual(1);
+            expect(res.body.records[0].key).toEqual('currency');
+          });
+      });
     });
     describe('when filter is gt', () => {
       it('applies filter', () => {
