@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node.js",
+    "start": "node index.js",
     "fixtures": "./tests/fixtures.sh",
     "test": "./node_modules/.bin/jest --runInBand --forceExit"
   },
