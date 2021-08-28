@@ -14,7 +14,13 @@ app.use(express.json());
 
 app.use((req, res, next) => {
   const token = req.headers.authorization.split('Bearer ')[1];
-  if (token != 'k4WfuPeruYeLcdk3X5mLnJoD') {
+  let compareTo;
+  if (process.env.NODE_ENV === 'production') {
+    compareTo = 'k4WfuPeruYeLcdk3X5mLnJoD';
+  } else {
+    compareTo = 'azerty';
+  }
+  if (token != compareTo) {
     return res.status(401).json({ error: 'Invalid bearer token' });
   }
   next();
