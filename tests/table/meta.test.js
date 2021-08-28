@@ -5,6 +5,7 @@ describe('GET /tables/:name/:meta', () => {
     it('returns 404', (done) => {
       request(app)
         .get('/tables/unknown_table/meta')
+        .set('Authorization', 'Bearer azerty')
         .expect(404, done);
     });
   });
@@ -12,6 +13,7 @@ describe('GET /tables/:name/:meta', () => {
     it('returns table keys', () => {
       return request(app)
         .get('/tables/orders/meta')
+        .set('Authorization', 'Bearer azerty')
         .expect(200)
         .then(res => {
           expect(res.body.keys).toEqual({
@@ -28,6 +30,7 @@ describe('GET /tables/:name/:meta', () => {
     it('returns table columns', () => {
       return request(app)
         .get('/tables/settings/meta')
+        .set('Authorization', 'Bearer azerty')
         .expect(200)
         .then(res => {
           expect(res.body.columns).toEqual([
@@ -39,6 +42,7 @@ describe('GET /tables/:name/:meta', () => {
     it('returns table has many', () => {
       return request(app)
         .get('/tables/clients/meta')
+        .set('Authorization', 'Bearer azerty')
         .expect(200)
         .then(res => {
           expect(res.body.has_many).toEqual([

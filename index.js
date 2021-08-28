@@ -13,8 +13,9 @@ app.use(cors());
 app.use(express.json());
 
 app.use((req, res, next) => {
-  console.log(req.headers.authorization);
-  console.log('--');
+  if (!req.headers.authorization) {
+    return res.status(401).json({ error: 'Missing bearer token' });
+  }
   const token = req.headers.authorization.split('Bearer ')[1];
   let compareTo;
   if (process.env.NODE_ENV === 'production') {

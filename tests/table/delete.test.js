@@ -5,6 +5,7 @@ describe('DELETE /tables/:name', () => {
     it('returns 404', (done) => {
       request(app)
         .delete('/tables/unkonwn')
+        .set('Authorization', 'Bearer azerty')
         .set({ force: true })
         .expect(404, done);
     });
@@ -13,6 +14,7 @@ describe('DELETE /tables/:name', () => {
     it('returns 400', () => {
       return request(app)
         .delete('/tables/settings')
+        .set('Authorization', 'Bearer azerty')
         .expect(400)
         .then(res => {
           expect(res.body.error).toEqual('You need to add the force=true header to your request in order to delete multiple records')
@@ -25,6 +27,7 @@ describe('when force=true header present', () => {
     it('deletes all records from table', () => {
       return request(app)
         .delete('/tables/settings')
+        .set('Authorization', 'Bearer azerty')
         .set({ force: true })
         .expect(204)
         .then(async (res) => {
@@ -38,6 +41,7 @@ describe('when force=true header present', () => {
       return request(app)
         .delete('/tables/orders')
         .query({ id: 'gte.2' })
+        .set('Authorization', 'Bearer azerty')
         .set({ force: true })
         .expect(204)
         .then(async (res) => {

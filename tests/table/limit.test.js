@@ -5,6 +5,7 @@ describe('GET /tables/:name?limit=', () => {
     it('returns 404', (done) => {
       request(app)
         .get('/tables/unknown')
+        .set('Authorization', 'Bearer azerty')
         .query({ limit: '1', order: 'id' })
         .expect(404, done);
     });
@@ -13,6 +14,7 @@ describe('GET /tables/:name?limit=', () => {
     it('returns 400', () => {
       return request(app)
         .get('/tables/orders')
+        .set('Authorization', 'Bearer azerty')
         .query({ limit: 'azerty', order: 'id' })
         .expect(400)
         .then(res => {
@@ -27,6 +29,7 @@ describe('GET /tables/:name?limit=', () => {
       it('applies limit', () => {
         return request(app)
           .get('/tables/orders')
+          .set('Authorization', 'Bearer azerty')
           .query({ limit: '1', order: 'id' })
           .expect(200)
           .then(res => {
@@ -40,6 +43,7 @@ describe('GET /tables/:name?limit=', () => {
         it('returns 400', () => {
           return request(app)
             .get('/tables/orders')
+            .set('Authorization', 'Bearer azerty')
             .query({ limit: '1', offset: 'abc', order: 'id' })
             .expect(400)
             .then(res => {
@@ -49,10 +53,11 @@ describe('GET /tables/:name?limit=', () => {
             });
         });
       });
-      describe('when offset param valid', () => { 
+      describe('when offset param valid', () => {
         it('applies limit & offset', () => {
           return request(app)
             .get('/tables/orders')
+            .set('Authorization', 'Bearer azerty')
             .query({ limit: '1', offset: '1', order: 'id' })
             .expect(200)
             .then(res => {

@@ -5,6 +5,7 @@ describe('DELETE /tables/:name/:pk', () => {
     it('returns 404', (done) => {
       request(app)
         .delete('/tables/unknown/1')
+        .set('Authorization', 'Bearer azerty')
         .expect(404, done);
     });
   });
@@ -12,6 +13,7 @@ describe('DELETE /tables/:name/:pk', () => {
     it('returns 404', (done) => {
       request(app)
         .delete('/tables/clients/0')
+        .set('Authorization', 'Bearer azerty')
         .expect(404, done);
     });
   });
@@ -20,6 +22,7 @@ describe('DELETE /tables/:name/:pk', () => {
       it('deletes record', () => {
         return request(app)
           .delete('/tables/orders/1')
+          .set('Authorization', 'Bearer azerty')
           .expect(204)
           .then(async (res) => {
             const data = await db.any('SELECT * FROM orders WHERE id = 1');
@@ -31,6 +34,7 @@ describe('DELETE /tables/:name/:pk', () => {
       it('returns record', () => {
         return request(app)
           .delete('/tables/settings/currency')
+          .set('Authorization', 'Bearer azerty')
           .expect(204)
           .then(async (res) => {
             const data = await db.any("SELECT * FROM settings WHERE key = 'currency'");

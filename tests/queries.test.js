@@ -5,6 +5,7 @@ describe('POST /queries', () => {
     it('it returns 400', () => {
       return request(app)
         .post('/queries')
+        .set('Authorization', 'Bearer azerty')
         .expect(400)
         .then(res => {
           expect(res.body).toEqual({
@@ -17,6 +18,7 @@ describe('POST /queries', () => {
     it('it returns 400', () => {
       return request(app)
         .post('/queries')
+        .set('Authorization', 'Bearer azerty')
         .send({ query: 'SELECT azerty' })
         .expect(400)
         .then(res => {
@@ -30,6 +32,7 @@ describe('POST /queries', () => {
     it('returns query result', () => {
       return request(app)
         .post('/queries')
+        .set('Authorization', 'Bearer azerty')
         .send({ query: 'SELECT 1+1 AS count' })
         .expect(200)
         .then(res => {

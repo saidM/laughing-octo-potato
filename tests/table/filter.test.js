@@ -5,6 +5,7 @@ describe('GET /tables/:name?filter=', () => {
     it('returns 404', (done) => {
       request(app)
         .get('/tables/unkonwn_table')
+        .set('Authorization', 'Bearer azerty')
         .query({ key: 'eq.currency' })
         .expect(404, done)
     });
@@ -13,6 +14,7 @@ describe('GET /tables/:name?filter=', () => {
     it('returns 400', () => {
       return request(app)
         .get('/tables/settings')
+        .set('Authorization', 'Bearer azerty')
         .query({ key: 'invalid.currency' })
         .expect(400)
         .catch(err => {
@@ -25,6 +27,7 @@ describe('GET /tables/:name?filter=', () => {
       it('applies filter', () => {
         return request(app)
           .get('/tables/settings')
+          .set('Authorization', 'Bearer azerty')
           .query({ key: 'eq.currency' })
           .expect(200)
           .then(res => {
@@ -35,6 +38,7 @@ describe('GET /tables/:name?filter=', () => {
       it('applies filter (regardless of case)', () => {
         return request(app)
           .get('/tables/settings')
+          .set('Authorization', 'Bearer azerty')
           .query({ key: 'eq.CURRENCY' })
           .expect(200)
           .then(res => {
@@ -47,6 +51,7 @@ describe('GET /tables/:name?filter=', () => {
       it('applies filter', () => {
         return request(app)
           .get('/tables/orders')
+          .set('Authorization', 'Bearer azerty')
           .query({ id: 'gt.2', order: 'id' })
           .expect(200)
           .then(res => {
@@ -60,6 +65,7 @@ describe('GET /tables/:name?filter=', () => {
       it('applies filter', () => {
         return request(app)
           .get('/tables/orders')
+          .set('Authorization', 'Bearer azerty')
           .query({ id: 'gte.2', order: 'id' })
           .expect(200)
           .then(res => {
@@ -73,6 +79,7 @@ describe('GET /tables/:name?filter=', () => {
       it('applies filter', () => {
         return request(app)
           .get('/tables/orders')
+          .set('Authorization', 'Bearer azerty')
           .query({ id: 'lt.3', order: 'id' })
           .expect(200)
           .then(res => {
@@ -86,6 +93,7 @@ describe('GET /tables/:name?filter=', () => {
       it('applies filter', () => {
         return request(app)
           .get('/tables/orders')
+          .set('Authorization', 'Bearer azerty')
           .query({ id: 'lte.3', order: 'id' })
           .expect(200)
           .then(res => {
@@ -99,6 +107,7 @@ describe('GET /tables/:name?filter=', () => {
       xit('applies filter', () => {
         return request(app)
           .get('/tables/employees')
+          .set('Authorization', 'Bearer azerty')
           .query({ description: 'is.empty' })
           .expect(200)
           .then(res => {
@@ -112,6 +121,7 @@ describe('GET /tables/:name?filter=', () => {
       it('applies filter', () => {
         return request(app)
           .get('/tables/settings')
+          .set('Authorization', 'Bearer azerty')
           .query({ key: 'not.currency' })
           .expect(200)
           .then(res => {
@@ -125,6 +135,7 @@ describe('GET /tables/:name?filter=', () => {
       it('applies filter', () => {
         return request(app)
           .get('/tables/clients')
+          .set('Authorization', 'Bearer azerty')
           .query({ active: 'is.true' })
           .expect(200)
           .then(res => {
@@ -138,6 +149,7 @@ describe('GET /tables/:name?filter=', () => {
       it('applies filter', () => {
         return request(app)
           .get('/tables/clients')
+          .set('Authorization', 'Bearer azerty')
           .query({ active: 'is.false' })
           .expect(200)
           .then(res => {
@@ -151,6 +163,7 @@ describe('GET /tables/:name?filter=', () => {
       it('applies filters', () => {
         return request(app)
           .get('/tables/clients')
+          .set('Authorization', 'Bearer azerty')
           .query({ id: 'eq.1', active: 'is.true' })
           .expect(200)
           .then(res => {

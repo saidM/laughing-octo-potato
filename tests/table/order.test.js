@@ -5,6 +5,7 @@ describe('GET /tables/:name?order=', () => {
     it('returns 404', (done) => {
       request(app)
         .get('/tables/unkown')
+        .set('Authorization', 'Bearer azerty')
         .query({ order: 'key' })
         .expect(404, done);
     });
@@ -13,6 +14,7 @@ describe('GET /tables/:name?order=', () => {
     it('returns 404', (done) => {
       request(app)
         .get('/tables/settings')
+        .set('Authorization', 'Bearer azerty')
         .query({ order: 'id' })
         .expect(400, done);
     });
@@ -22,6 +24,7 @@ describe('GET /tables/:name?order=', () => {
       it('returns 400', (done) => {
         request(app)
           .get('/tables/settings')
+          .set('Authorization', 'Bearer azerty')
           .query({ order: 'id.unknown' })
           .expect(400, done);
       });
@@ -30,6 +33,7 @@ describe('GET /tables/:name?order=', () => {
       it('returns table ordered asc', () => {
         return request(app)
           .get('/tables/settings')
+          .set('Authorization', 'Bearer azerty')
           .query({ order: 'key' })
           .expect(200)
           .then(res => {
@@ -42,6 +46,7 @@ describe('GET /tables/:name?order=', () => {
       it('returns table ordered asc', () => {
         return request(app)
           .get('/tables/settings')
+          .set('Authorization', 'Bearer azerty')
           .query({ order: 'key.asc' })
           .expect(200)
           .then(res => {
@@ -54,6 +59,7 @@ describe('GET /tables/:name?order=', () => {
       it('returns table ordered desc', () => {
         return request(app)
           .get('/tables/settings')
+          .set('Authorization', 'Bearer azerty')
           .query({ order: 'key.desc' })
           .expect(200)
           .then(res => {

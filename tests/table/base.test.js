@@ -5,6 +5,7 @@ describe('GET /tables/:name', () => {
     it('returns 404', (done) => {
       request(app)
         .get('/tables/unknown_take')
+        .set('Authorization', 'Bearer azerty')
         .expect(404, done);
     });
   });
@@ -12,6 +13,7 @@ describe('GET /tables/:name', () => {
     it('returns table records total count', () => {
       return request(app)
         .get('/tables/settings')
+        .set('Authorization', 'Bearer azerty')
         .expect(200)
         .then(res => {
           expect(res.body.count).toEqual(2);
@@ -20,6 +22,7 @@ describe('GET /tables/:name', () => {
     it('returns table records', () => {
       return request(app)
         .get('/tables/settings')
+        .set('Authorization', 'Bearer azerty')
         .expect(200)
         .then(res => {
           expect(res.body.records.length).toEqual(2);

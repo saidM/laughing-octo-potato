@@ -5,6 +5,7 @@ describe('POST /tables/:name', () => {
     it('returns 404', (done) => {
       request(app)
         .post('/tables/unknown')
+        .set('Authorization', 'Bearer azerty')
         .send({ key: 'timezone' })
         .expect(404, done);
     });
@@ -14,6 +15,7 @@ describe('POST /tables/:name', () => {
       it('returns 400', () => {
         return request(app)
           .post('/tables/settings')
+          .set('Authorization', 'Bearer azerty')
           .send({ key: 'timezone' })
           .expect(400)
           .then(async (res) => {
@@ -29,6 +31,7 @@ describe('POST /tables/:name', () => {
       it('creates record', () => {
         return request(app)
           .post('/tables/settings')
+          .set('Authorization', 'Bearer azerty')
           .send({ key: 'timezone', value: 'Europe/Paris' })
           .expect(201)
           .then(async (res) => {
@@ -49,6 +52,7 @@ describe('POST /tables/:name/:pk/:collection', () => {
     it('returns 404', (done) => {
       request(app)
         .post('/tables/unknown/1/orders')
+        .set('Authorization', 'Bearer azerty')
         .send({ date: '2021-07-07T08:00:00Z', amount: '4.95' })
         .expect(404, done);
     });
@@ -57,6 +61,7 @@ describe('POST /tables/:name/:pk/:collection', () => {
     it('returns 404', (done) => {
       request(app)
         .post('/tables/clients/0/orders')
+        .set('Authorization', 'Bearer azerty')
         .send({ date: '2021-07-07T08:00:00Z', amount: '4.95' })
         .expect(404, done);
     });
@@ -65,6 +70,7 @@ describe('POST /tables/:name/:pk/:collection', () => {
     it('returns 404', (done) => {
       request(app)
         .post('/tables/clients/1/transactions')
+        .set('Authorization', 'Bearer azerty')
         .send({ date: '2021-07-07T08:00:00Z', amount: '4.95' })
         .expect(404, done);
     });
@@ -74,6 +80,7 @@ describe('POST /tables/:name/:pk/:collection', () => {
       it('returns 400', () => {
         return request(app)
           .post('/tables/clients/1/orders')
+          .set('Authorization', 'Bearer azerty')
           .send({ date: '2021-07-07T08:00:00Z' })
           .expect(400)
           .then(async (res) => {
@@ -87,6 +94,7 @@ describe('POST /tables/:name/:pk/:collection', () => {
       it('creates record', () => {
         return request(app)
           .post('/tables/clients/1/orders')
+          .set('Authorization', 'Bearer azerty')
           .send({ date: '2021-07-07T08:00:00Z', amount: '4.95' })
           .expect(201)
           .then(async (res) => {

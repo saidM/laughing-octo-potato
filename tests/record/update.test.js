@@ -5,6 +5,7 @@ describe('PUT /tables/:name/:pk', () => {
     it('returns 404', (done) => {
       request(app)
         .put('/tables/unknown/currency')
+        .set('Authorization', 'Bearer azerty')
         .send({ value: '' })
         .expect(404, done);
     });
@@ -13,6 +14,7 @@ describe('PUT /tables/:name/:pk', () => {
     it('returns 404', (done) => {
       request(app)
         .put('/tables/settings/unknown')
+        .set('Authorization', 'Bearer azerty')
         .send({ key: 'timezone' })
         .expect(404, done);
     });
@@ -22,6 +24,7 @@ describe('PUT /tables/:name/:pk', () => {
       it('returns 400', () => {
         return request(app)
           .put('/tables/settings/currency')
+          .set('Authorization', 'Bearer azerty')
           .send({ value: null })
           .expect(400)
           .then(async (res) => {
@@ -37,6 +40,7 @@ describe('PUT /tables/:name/:pk', () => {
       it('updates record', () => {
         return request(app)
           .put('/tables/settings/currency')
+          .set('Authorization', 'Bearer azerty')
           .send({ value: 'eur' })
           .expect(200)
           .then(async (res) => {

@@ -5,6 +5,7 @@ describe('GET /tables/:name/:pk', () => {
     it('returns 404', (done) => {
       request(app)
         .get('/tables/unkonwn/1')
+        .set('Authorization', 'Bearer azerty')
         .expect(404, done);
     });
   });
@@ -12,6 +13,7 @@ describe('GET /tables/:name/:pk', () => {
     it('returns 404', (done) => {
       request(app)
         .get('/tables/clients/0')
+        .set('Authorization', 'Bearer azerty')
         .expect(404, done);
     });
   });
@@ -20,6 +22,7 @@ describe('GET /tables/:name/:pk', () => {
       it('returns record', () => {
         return request(app)
           .get('/tables/orders/1')
+          .set('Authorization', 'Bearer azerty')
           .expect(200)
           .then(res => {
             expect(res.body).toEqual({
@@ -35,6 +38,7 @@ describe('GET /tables/:name/:pk', () => {
       it('returns record', () => {
         return request(app)
           .get('/tables/settings/currency')
+          .set('Authorization', 'Bearer azerty')
           .expect(200)
           .then(res => {
             expect(res.body).toEqual({
