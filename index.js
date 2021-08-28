@@ -13,6 +13,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use((req, res, next) => {
+  console.log(req.headers.authorization);
+  console.log('--');
   const token = req.headers.authorization.split('Bearer ')[1];
   let compareTo;
   if (process.env.NODE_ENV === 'production') {
