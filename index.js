@@ -12,6 +12,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use((req, res, next) => {
+  const token = req.headers.authorization.split('Bearer ')[1];
+  if (token != 'k4WfuPeruYeLcdk3X5mLnJoD') {
+    return res.status(401).json({ error: 'Invalid bearer token' });
+  }
+  next();
+});
+
 app.get('/tables', async (req, res, next) => {
   try {
     const tables = await db.tables();
