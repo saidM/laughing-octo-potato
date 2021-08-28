@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 if (!process.env.DATABASE_URL) {
   console.log('Missing ENV[DATABASE_URL]');
   process.exit(1);
@@ -17,13 +19,7 @@ app.use((req, res, next) => {
     return res.status(401).json({ error: 'Missing bearer token' });
   }
   const token = req.headers.authorization.split('Bearer ')[1];
-  let compareTo;
-  if (process.env.NODE_ENV === 'production') {
-    compareTo = 'k4WfuPeruYeLcdk3X5mLnJoD';
-  } else {
-    compareTo = 'azerty';
-  }
-  if (token != compareTo) {
+  if (token != process.env.BRIDGE_TOKEN) {
     return res.status(401).json({ error: 'Invalid bearer token' });
   }
   next();
