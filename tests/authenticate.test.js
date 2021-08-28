@@ -5,7 +5,6 @@ describe('Authenticate Middleware', () => {
     it('returns 401', () => {
       return request(app)
       .get('/tables')
-      // .set('Authorization', 'Bearer azerty')
       .expect(401);
     });
   });
